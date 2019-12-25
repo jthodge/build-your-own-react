@@ -20,11 +20,25 @@ const element = {
 };
 // an element is an object with two properties: type and props
 // (more: https://github.com/facebook/react/blob/f4cc45ce962adc9f307690e1d5cfa28a288418eb/packages/react/src/ReactElement.js#L111)
-// type: string specifying type of DOM node to create; tagName param passed to document.createElemtn
+// type: string specifying type of DOM to create; tagName param passed to document.createElemtn
 // props: object containing key-value pairs for JSX attributes; contains special property children
 // children: string || array
 
 // grab a node from the DOM
 const container = document.getElementById("root");
+
 // render the React element in the container
-ReactDOM.render(element, container);
+// render is where React alters the DOM
+// ReactDOM.render(element, container);
+
+// 1. create a DOM element node using the element type
+const node = document.createElement(element.type);
+// 2. assian all element props to the created node
+node["title"] = element.props.title;
+
+// 3. create DOM element nodes for children
+const text = document.createTextNode(""); // compare textNode to innerText
+node["nodeValue"] = element.props.children;
+// 4. append textNode to the h1 and the h1 to the container
+node.appendChild(text);
+container.appendChild(node);
